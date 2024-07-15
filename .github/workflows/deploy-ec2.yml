@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_PORT}}
           script: |
-            sudo docker pull kkarki7120/frontend:latest
+            sudo docker pull kkarki7120/backend:latest
             sudo docker stop backtend || true
             sudo docker rm backend || true
             sudo docker run -d --name backend --network=host kkarki7120/backend:latest
