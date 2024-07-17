@@ -47,7 +47,7 @@ jobs:
             sudo docker pull kkarki7120/backend:latest
             sudo docker stop backtend || true
             sudo docker rm backend || true
-            sudo docker run -d --name backend -p --network=host kkarki7120/backend:latest
+            sudo docker run -d --name backend --network=host kkarki7120/backend:latest
             echo "It is completed succesfully"
 
       
