@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -12,11 +13,11 @@ app.use(cors());
 
 // MySQL connection
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'reactuser', // Replace with your MySQL username
-  password: 'React@1234!', // Replace with your MySQL password
-  database: 'react',
-  port: 3306
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT
 });
 
 db.connect((err) => {
@@ -27,14 +28,14 @@ db.connect((err) => {
 });
 
 // Create database and table if not exists
-db.query('CREATE DATABASE IF NOT EXISTS react', (err) => {
+db.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`, (err) => {
   if (err) {
     throw err;
   }
   console.log('Database created');
 });
 
-db.query('USE react', (err) => {
+db.query('USE ' + process.env.DB_NAME, (err) => {
   if (err) {
     throw err;
   }
@@ -65,7 +66,7 @@ app.post('/submit', (req, res) => {
     if (err) {
       res.status(500).json({ message: 'An error occurred', error: err });
     } else {
-      res.status(200).json({ message: `Hello your response has been saved` });
+      res.status(200).json({ message: 'Your response has been saved' });
     }
   });
 });
